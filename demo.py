@@ -9,3 +9,5 @@ for subtitle in transcript:
     text += subtitle['text'] + ' '
 
 print(text)
+
+# def ingredients(transcript):
