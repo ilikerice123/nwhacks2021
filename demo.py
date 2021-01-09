@@ -1,4 +1,5 @@
 from youtube_transcript_api import YouTubeTranscriptApi
+import nltk
 
 # binging with babish video on potstickers: https://www.youtube.com/watch?v=iC1rvXPt_rE
 video_id = 'iC1rvXPt_rE'
