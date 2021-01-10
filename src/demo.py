@@ -2,8 +2,14 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from ingredients import Ingredients
 import argparse
 import nltk
+import pytube
+import numpy as np
+import cv2
+import os
 
-def get_ingredients(url, use_filter):
+PICTURE_FREQUENCY = 8
+
+def get_recipe(url, use_filter):
     # target Binging with Babish video
     transcript = YouTubeTranscriptApi.get_transcript(url)
 
@@ -12,7 +18,7 @@ def get_ingredients(url, use_filter):
     with open("../../datasets/cooking_verbs.txt", 'r') as verb_file:
         verbs = verb_file.readlines()
 
-    # ingredient extraction
+    # ingredient extraction ============================
     db = Ingredients()
     ingreds = set([])
     actual_ingredients = []
@@ -28,12 +34,15 @@ def get_ingredients(url, use_filter):
 
     print(actual_ingredients)
     res['ingredients'] = actual_ingredients
+    # ==================================================
+    video_file = download_video(url)
 
-    # Filter lines, creating the steps
+    # steps extraction =================================
     times = ['seconds', 'minutes', 'hours', 'second', 'minute', 'hour']
     instructions = []
+    pictures = []
     if use_filter:
-        print("Filtering transcript...")
+        i = 0
         for subtitle in transcript:
             text = subtitle['text']
 
@@ -44,11 +53,27 @@ def get_ingredients(url, use_filter):
             # Remove lines without an ingredient, cooking verb, or time measurement
             for target in (list(ingreds) + verbs):
                 if (target in text or len([t for t in times if(t in text)])):
-                    with open('after_filter.txt', 'a') as after_file:
-                        after_file.write(text + '\n')
-                        instructions.append(text)
-                        break
+                    instructions.append({'step': text})
+                    if i % PICTURE_FREQUENCY == 0:
+                        pictures.append(subtitle['start'])
+                    # with open('after_filter.txt', 'a') as after_file:
+                    #     after_file.write(text + '\n')
+                    #     break
+                    i += 1
+                    break
     res['instructions'] = instructions
+    # ==================================================
+
+    # frames extraction ================================
+    file_names = extract_frames(video_file, pictures)
+    i = 0
+    for file_name in file_names:
+        res['instructions'][i]['image'] = file_name
+        i += PICTURE_FREQUENCY
+    if os.path.exists(video_file):
+        os.remove(video_file)
+    # ==================================================
+
     return res
 
 def get_actual_ingredients(cur_ingredients, measurements):
@@ -69,6 +94,34 @@ def get_verbs(text):
         if tag[1] == "VB":
             cur_verbs.append(tag[0].lower())
 
+def download_video(video_id):
+    video_url = 'https://www.youtube.com/watch?v=' + video_id
+    youtube = pytube.YouTube(video_url)
+    video = youtube.streams.first()
+    video.download('frames', video_id + '.mp4') # path, where to video download.
+    return 'frames/' + video_id + 'mp4.mp4'
+
+def extract_frames(video_file, frame_secs):
+    #Open the video file
+    cap = cv2.VideoCapture(video_file)
+    name_prefix = video_file.split(".")[0]
+    files = []
+
+    #The first argument of cap.set(), number 2 defines that parameter for setting the frame selection.
+    #Number 2 defines flag CV_CAP_PROP_POS_FRAMES which is a 0-based index of the frame to be decoded/captured next.
+    #The second argument defines the frame number in range 0.0-1.0
+    for frame_sec in frame_secs:
+        cap.set(cv2.CAP_PROP_POS_MSEC, frame_sec * 1000)
+        ret, frame = cap.read()
+        file_name = name_prefix + '_frame' + str(frame_sec) + '.jpg'
+        #Store this frame to an image
+        cv2.imwrite(file_name, frame)
+        files.append(file_name)
+
+    # When everything done, release the capture
+    cap.release()
+    return files
+
 if __name__ == "__main__":
     # Parse command line args
     parser = argparse.ArgumentParser()
@@ -76,4 +129,6 @@ if __name__ == "__main__":
     parser.add_argument('-url', '--url', required=True, type=str)
 
     args, unknown = parser.parse_known_args()
-    get_ingredients(args.url, args.filter)
+    a = get_recipe(args.url, args.filter)
+    print(len(a['instructions']))
+    print(a)
