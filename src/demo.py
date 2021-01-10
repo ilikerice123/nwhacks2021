@@ -5,8 +5,7 @@ import nltk
 
 def get_ingredients(url):
     # target Binging with Babish video
-    bread_video = 'Jizr6LR83Kk'
-    transcript = YouTubeTranscriptApi.get_transcript(str(url))
+    transcript = YouTubeTranscriptApi.get_transcript(url)
 
     # Parse command line args
     parser = argparse.ArgumentParser()
@@ -18,7 +17,7 @@ def get_ingredients(url):
     old_string = "../datasets/cooking_verbs.txt" 
     curr = "../../datasets/cooking_verbs.txt"
     with open(curr, 'r') as verb_file:
-        verbs = verb_file.readlines()
+        verbs = verb_file.read().splitlines()
 
     # ingredient extraction
     db = Ingredients()
@@ -60,10 +59,8 @@ def get_ingredients(url):
                 before_file.write(text + '\n')
         
             # Remove lines without an ingredient, cooking verb, or time measurement
-            for ingredient, verb in zip(ingreds, verbs):
-                if (ingredient in subtitle['text'] or
-                        verb in subtitle['text'] or
-                        len([t for t in times if(t in text)])):
+            for target in (ingreds + verbs):
+                if (target in text or len([t for t in times if(t in text)])):
                     with open('after_filter.txt', 'a') as after_file:
                         after_file.write(text + '\n')
                         break
@@ -71,4 +68,5 @@ def get_ingredients(url):
     return res
 
 if __name__ == "__main__":
-    get_ingredients("Jizr6LR83Kk")
+    get_ingredients("nbCgfiqq-5c")
+
