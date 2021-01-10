@@ -1,5 +1,5 @@
 import React from 'react'
-import Recipe from './components/RecipeDisplay'
+import Recipe, {host} from './components/RecipeDisplay'
 
 class App extends React.Component {
   constructor() {
@@ -20,6 +20,7 @@ class App extends React.Component {
           <button onClick={() => this.search()}>Search</button>
           <Recipe id={this.state.video}/>
         </header>
+        <img src={host() + 'frames/iC1rvXPt_rEmp4_frame293.32.jpg'} />
       </div>
     )
   }

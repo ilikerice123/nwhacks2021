@@ -28,7 +28,7 @@ export default class Recipe extends React.Component {
     }
 }
 
-function host() {
+export function host() {
     let url = new URL(window.location.href)
     if (url.host.includes("localhost")) {
         return "http://localhost:5000/"
