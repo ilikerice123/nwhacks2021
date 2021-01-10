@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Recipe from './components/RecipeDisplay'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {video: null, input: ''}
+  }
+
+  search() {
+    console.log('search called!')
+    this.setState((prevState) => ({video: prevState.input, input: prevState.input}))
+  }
+
+  render(){
+    return (
+      <div className="App">
+        <header className="App-header">
+          <input value={this.state.input} onChange={e => this.setState({input: e.target.value})} />
+          <button onClick={() => this.search()}>Search</button>
+          <Recipe id={this.state.video}/>
+        </header>
+      </div>
+    )
+  }
 }
 
 export default App;
