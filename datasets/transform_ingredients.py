@@ -1,7 +1,7 @@
 import json
 ingredients = set([])
 
-with open('train.json') as f:
+with open('json/train.json') as f:
     data = json.load(f)
 
 for recipe in data:
@@ -10,5 +10,5 @@ for recipe in data:
             ingredients.add(ingredient)
 
 parsed = list(ingredients)
-with open('ingredients.json', 'w') as fi:
+with open('json/ingredients.json', 'w') as fi:
     json.dump(parsed, fi)
