@@ -8,11 +8,11 @@ class Node:
 
 class Ingredients:
     def __init__(self):
-        with open('data/ingredients.json') as f:
+        with open('../../datasets/json/ingredients.json') as f:
             ingredients = set(json.load(f))
-        with open('data/units.json') as f:
+        with open('../../datasets/json/units.json') as f:
             self.units = json.load(f)
-        with open('data/amounts.json') as f:
+        with open('../../datasets/json/amounts.json') as f:
             self.amounts = json.load(f)
 
         self.root = Node("*", None)
@@ -24,6 +24,7 @@ class Ingredients:
     def parse_ingredients(self, fragment):
         words = self._words(fragment)
         ret = []
+        # TODO fix this shit and remove b/c it's temporary
         i = 0
         while i < len(words):
             if words[i] in self.root.children:
