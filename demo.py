@@ -1,8 +1,8 @@
 from youtube_transcript_api import YouTubeTranscriptApi
 from ingredients import Ingredients
 
-# basics with babish video: https://www.youtube.com/watch?v=Jizr6LR83Kk
-video_id = 'Jizr6LR83Kk'
+# basics with babish video: https://www.youtube.com/watch?v=nbCgfiqq-5c
+video_id = 'nbCgfiqq-5c'
 transcript = YouTubeTranscriptApi.get_transcript(video_id)
 import nltk
 
