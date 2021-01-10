@@ -18,7 +18,6 @@ for subtitle in transcript:
 	measurements = db.parse_measurements(text)
 	ingreds += stuff
 
-
 	for tag in tagged:
 		if tag[1] == "VB":
 			verbs.append(tag[0].lower())

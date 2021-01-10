@@ -8,11 +8,11 @@ class Node:
 
 class Ingredients:
     def __init__(self):
-        with open('ingredients.json') as f:
+        with open('data/ingredients.json') as f:
             ingredients = set(json.load(f))
-        with open('units.json') as f:
+        with open('data/units.json') as f:
             self.units = json.load(f)
-        with open('amounts.json') as f:
+        with open('data/amounts.json') as f:
             self.amounts = json.load(f)
 
         self.root = Node("*", None)
