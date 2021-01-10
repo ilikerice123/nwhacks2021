@@ -24,14 +24,19 @@ def get_recipe(url, use_filter):
     actual_ingredients = []
     res = {}
     i = 0
+    print('>>> Getting ingredients')
     for subtitle in transcript:
         i += 1
         text = subtitle['text']
         cur_ingredients = db.parse_ingredients(text)
         measurements = db.parse_measurements(text)
+        if len(cur_ingredients) > 0:
+            print('>>> Ingredients from line ' + str(i) + ': ')
+            print(cur_ingredients)
         ingreds |= set(cur_ingredients)
         actual_ingredients += get_actual_ingredients(cur_ingredients, measurements)
 
+    print('>>> Ingredients detected: ')
     print(actual_ingredients)
     res['ingredients'] = actual_ingredients
     # ==================================================
@@ -42,6 +47,7 @@ def get_recipe(url, use_filter):
     instructions = []
     pictures = []
     if use_filter:
+        print('>>> Generating steps')
         i = 0
         for subtitle in transcript:
             text = subtitle['text']
@@ -56,15 +62,18 @@ def get_recipe(url, use_filter):
                     instructions.append({'step': text})
                     if i % PICTURE_FREQUENCY == 0:
                         pictures.append(subtitle['start'])
+                    print('>>> KEEPING LINE: ' + text)
                     # with open('after_filter.txt', 'a') as after_file:
                     #     after_file.write(text + '\n')
                     #     break
                     i += 1
                     break
     res['instructions'] = instructions
+    print('>>> Steps Generation Complete')
     # ==================================================
 
     # frames extraction ================================
+    print('>>> Extracting Frames...')
     file_names = extract_frames(video_file, pictures)
     i = 0
     for file_name in file_names:
@@ -73,7 +82,8 @@ def get_recipe(url, use_filter):
     if os.path.exists(video_file):
         os.remove(video_file)
     # ==================================================
-
+    print('>>> finished. result: ')
+    print(res)
     return res
 
 def get_actual_ingredients(cur_ingredients, measurements):
@@ -95,6 +105,7 @@ def get_verbs(text):
             cur_verbs.append(tag[0].lower())
 
 def download_video(video_id):
+    print('downloading video...')
     video_url = 'https://www.youtube.com/watch?v=' + video_id
     youtube = pytube.YouTube(video_url)
     video = youtube.streams.first()
@@ -111,6 +122,7 @@ def extract_frames(video_file, frame_secs):
     #Number 2 defines flag CV_CAP_PROP_POS_FRAMES which is a 0-based index of the frame to be decoded/captured next.
     #The second argument defines the frame number in range 0.0-1.0
     for frame_sec in frame_secs:
+        print('extracting frame from ' + video_file + ' @ ' + str(frame_sec) + ' secs')
         cap.set(cv2.CAP_PROP_POS_MSEC, frame_sec * 1000)
         ret, frame = cap.read()
         file_name = name_prefix + '_frame' + str(frame_sec) + '.jpg'
