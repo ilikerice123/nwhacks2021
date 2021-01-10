@@ -5,7 +5,7 @@ import nltk
 
 def get_ingredients(url, filter):
     # target Binging with Babish video
-    transcript = YouTubeTranscriptApi.get_transcript(str(url))
+    transcript = YouTubeTranscriptApi.get_transcript(url)
 
     # Get verbs from db
     verbs = []
@@ -41,10 +41,8 @@ def get_ingredients(url, filter):
                 before_file.write(text + '\n')
         
             # Remove lines without an ingredient, cooking verb, or time measurement
-            for ingredient, verb in zip(ingreds, verbs):
-                if (ingredient in subtitle['text'] or
-                        verb in subtitle['text'] or
-                        len([t for t in times if(t in text)])):
+            for target in (ingreds + verbs):
+                if (target in text or len([t for t in times if(t in text)])):
                     with open('after_filter.txt', 'a') as after_file:
                         after_file.write(text + '\n')
                         break
