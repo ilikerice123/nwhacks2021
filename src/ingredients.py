@@ -41,6 +41,19 @@ class Ingredients:
     # search for any measurements in the current fragment
     # do not care if measurements are cut off between fragments
     def parse_measurements(self, fragment):
+        word_to_num = {
+            "one": 1,
+            "two": 2,
+            "three": 3,
+            "four": 4,
+            "five": 5,
+            "six": 6,
+            "seven": 7,
+            "eight": 8,
+            "nine": 9,
+            "ten": 10
+        }
+
         words = self._words(fragment)
         amounts = []
         units = []
@@ -48,7 +61,10 @@ class Ingredients:
             amount = self._tryAmount(word)
             if amount is not None:
                 # number! woot woot
-                amounts.append(amount)
+                if amount in word_to_num:
+                    amounts.append(str(word_to_num[amount]))
+                else:
+                    amounts.append(amount)
                 continue
             unit = self._tryUnit(word)
             if unit is not None:
