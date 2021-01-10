@@ -1,13 +1,13 @@
 from youtube_transcript_api import YouTubeTranscriptApi
+from ingredients import Ingredients
 
-# binging with babish video on potstickers: https://www.youtube.com/watch?v=iC1rvXPt_rE
-video_id = 'iC1rvXPt_rE'
+# basics with babish video on burgers: https://www.youtube.com/watch?v=iC1rvXPt_rE
+video_id = 'nbCgfiqq-5c'
 transcript = YouTubeTranscriptApi.get_transcript(video_id)
 
-text = ''
+db = Ingredients()
+ingreds = []
 for subtitle in transcript:
-    text += subtitle['text'] + ' '
-
-print(text)
-
-# def ingredients(transcript):
+    stuff = db.parse_ingredients(subtitle['text'])
+    ingreds += stuff
+print(ingreds)

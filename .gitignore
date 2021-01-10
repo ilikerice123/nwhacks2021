@@ -1,2 +1,3 @@
 python_env/
 credentials.json
+__pycache__/
