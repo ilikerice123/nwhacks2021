@@ -21,14 +21,12 @@ cut
 bring
 cover
 remove
-know
 need
 dump
 prevent
 cool
 put
 say
-gon
 look
 eat
 combine
@@ -42,7 +40,6 @@ grab
 place
 throw
 mix
-come
 bake
 pour
 end
@@ -50,7 +47,6 @@ turn
 prepare
 begin
 taste
-tell
 buy
 run
 roll
@@ -63,7 +59,6 @@ develop
 knead
 wrap
 drain
-notice
 stick
 sit
 maintain
@@ -313,7 +308,6 @@ write
 grease
 hack
 match
-ake
 exercise
 double-dip
 strengthen
@@ -354,7 +348,6 @@ ruin
 carve
 search
 purchase
-youtube
 mean
 reveal
 record
@@ -372,7 +365,6 @@ bang
 capsize
 overcompensate
 precut
-pre-vent
 atop
 braise
 clump
@@ -382,10 +374,8 @@ benefit
 overlap
 unfold
 increase
-finished
 step
 agitate
-it's
 first
 suck
 carefully
@@ -394,11 +384,9 @@ mention
 offend
 argue
 manipulate
-seventy
 crumb
 gluten
 elongate
-piss
 steal
 bounce
 lengthen
@@ -417,7 +405,6 @@ unleash
 overcrowd
 darken
 nestle
-face
 ribs
 shallow
 blend
@@ -450,13 +437,11 @@ checkout
 funnel
 quarantine
 agree
-kimchi
 coach
 corner
 jar
 welcome
 omit
-lava
 burst
 change
 reset
@@ -510,18 +495,11 @@ firm
 earn
 butter
 speak
-eggs
 dress
 pink
 invite
-juke
-spill
-grip
 sprinkle
-discuss
 convert
-cherry
-mesquite
 crimp
 smolder
 compensate
@@ -550,10 +528,6 @@ tag
 bag
 confuse
 halt
-creamy
-shimmer
-yoki
-homemade
 drink
 second
 harvest
@@ -568,15 +542,11 @@ splatter
 silence
 pool
 carry
-briefly
 blitz
 sear
-cilantro
 drizzle
 weigh
 act
-tex
-mechs
 stab
 safer
 defend
@@ -589,7 +559,6 @@ dare
 tingle
 participate
 squish
-fun
 scratch
 replace
 stiff
@@ -608,5 +577,3 @@ bind
 ball
 smoosh
 daydream
-yeah
-kiss
