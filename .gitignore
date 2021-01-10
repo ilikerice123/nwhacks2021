@@ -1,3 +1,5 @@
 python_env/
 credentials.json
 __pycache__/
+after_filter.txt
+before_filter.txt

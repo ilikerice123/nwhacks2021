@@ -58,6 +58,7 @@ class Ingredients:
         measurements = []
         for i in range(len(amounts)):
             if i >= len(units):
+                measurements.append((str(amounts[i]), None))
                 break
             measurements.append((str(amounts[i]), units[i]))
         return measurements
@@ -66,7 +67,7 @@ class Ingredients:
     # returns None if not an amount
     def _tryAmount(self, s):
         for amount in self.amounts:
-            if amount in s:
+            if amount == s:
                 return s
         try:
             return Fraction(s)
