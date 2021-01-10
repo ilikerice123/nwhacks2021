@@ -11,6 +11,7 @@ export default class Recipe extends React.Component {
         if (prevProps.id != this.props.id && this.props.id != null) {
             let recipeId = this.props.id
             let res = await fetch(host() + 'transcribe?data=' + recipeId)
+            this.props.stopLoading()
             if (!res.ok) {
                 console.log('wtf why not ok')
                 return

@@ -6,20 +6,46 @@
   justify-content: center;
 }
 
+.background {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+  opacity: 0.8;
+}
+.background-img {
+  height: 100vh;
+  width: 100vw;
+}
+.BLACK {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
 .title-main {
   display: flex;
   justify-content: center;
 }
 
+.title-main h1 {
+  margin-top: 0vh;
+  margin-bottom: 0px;
+  font-size: 17vh;
+  color: white;
+  font-family: 'Yesteryear', cursive;
+}
 .title-sub {
   display: flex;
   justify-content: center;
+  color: white;
 }
 
 .title-screen .search {
   margin-top: 10vh;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100vw;
   display: inline-flex;
   justify-content: center;
 }
@@ -43,46 +69,169 @@
   border-radius: 5px;
   border: 0px;
   font-size: 4vh;
-  background-color: darkmagenta;
+  background-color: pink;
   color: white
 }
 
 .recipe-display {
+  background-color: rgb(255, 224, 228);
   height: 100vh;
   width: 100vw;
   display: flex;
+  flex-direction: column;
 }
 
 .ingred {
 }
 .ingred h2 {
-  margin-left: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Yesteryear', cursive;
+  font-size: 8vh;
+  margin-bottom: 0px;
+  text-align: left;
+  margin-left: 5vw
+}
+.ingred ul {
+  margin-left: 5vw;
+}
+.ingred li {
+  list-style-type: none;
+  margin-bottom: 0px;
+}
+.ingred ul li::before {
+  content: "-      ";
+  color: rgb(148, 82, 93);
+  font-family: 'Yesteryear', cursive;
+}
+
+.separator {
+  height: 5vh;
+  width: 100vw;
+  background: rgb(233, 181, 190);
 }
 
 .ins {
-  
+  background-color: rgb(255, 224, 228);
 }
 .ins h2 {
-  margin-left: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 8vh;
+  font-family: 'Yesteryear', cursive;
+  text-align: left;
+  margin-bottom: 0px;
+  margin-left: 5vw
 }
 
 .ins ol {
+  margin-left: 5vw;
   list-style: none;
   counter-reset: my-awesome-counter;
 }
 .ins ol li {
   counter-increment: my-awesome-counter;
+  margin-bottom: 7px;
 }
 .ins ol li::before {
   content: counter(my-awesome-counter) ". ";
   font-weight: bold;
+  color: rgb(148, 82, 93);
+  font-family: 'Yesteryear', cursive;
+  font-size: 4vh;
 }
 
 body {
-  background-color: lightpink;
   font-family: Montserrat, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+
+.stage {
+  margin-left: 5vw;
+  align-items: center;
+}
+
+/**
+ * ==============================================
+ * Dot Pulse
+ * ==============================================
+ */
+ .dot-pulse {
+  position: relative;
+  left: -9999px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: white;
+  color: white;
+  box-shadow: 9999px 0 0 -5px white;
+  animation: dotPulse 1.5s infinite linear;
+  animation-delay: .25s;
+}
+
+.dot-pulse::before, .dot-pulse::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: white;
+  color: white;
+}
+
+.dot-pulse::before {
+  box-shadow: 9984px 0 0 -5px white;
+  animation: dotPulseBefore 1.5s infinite linear;
+  animation-delay: 0s;
+}
+
+.dot-pulse::after {
+  box-shadow: 10014px 0 0 -5px white;
+  animation: dotPulseAfter 1.5s infinite linear;
+  animation-delay: .5s;
+}
+
+@keyframes dotPulseBefore {
+  0% {
+    box-shadow: 9984px 0 0 -5px white;
+  }
+  30% {
+    box-shadow: 9984px 0 0 2px white;
+  }
+  60%,
+  100% {
+    box-shadow: 9984px 0 0 -5px white;
+  }
+}
+
+@keyframes dotPulse {
+  0% {
+    box-shadow: 9999px 0 0 -5px white;
+  }
+  30% {
+    box-shadow: 9999px 0 0 2px white;
+  }
+  60%,
+  100% {
+    box-shadow: 9999px 0 0 -5px white;
+  }
+}
+
+@keyframes dotPulseAfter {
+  0% {
+    box-shadow: 10014px 0 0 -5px white;
+  }
+  30% {
+    box-shadow: 10014px 0 0 2px white;
+  }
+  60%,
+  100% {
+    box-shadow: 10014px 0 0 -5px white;
+  }
 }
