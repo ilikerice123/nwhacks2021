@@ -41,7 +41,7 @@ def get_ingredients(url, filter):
                 before_file.write(text + '\n')
         
             # Remove lines without an ingredient, cooking verb, or time measurement
-            for target in (ingreds + verbs):
+            for target in (list(ingreds) + verbs):
                 if (target in text or len([t for t in times if(t in text)])):
                     with open('after_filter.txt', 'a') as after_file:
                         after_file.write(text + '\n')
