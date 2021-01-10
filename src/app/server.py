@@ -3,6 +3,9 @@ import sys
 sys.path.insert(1, "./..")
 from demo import get_ingredients
 
+# To run, do the following:
+# export FLASK_APP=server.py
+# `flask run`
 app = Flask(__name__)
 
 @app.route("/")
