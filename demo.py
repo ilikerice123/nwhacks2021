@@ -22,19 +22,52 @@ with open('data/freq_words.txt', 'r') as verb_file:
     verbs = verb_file.readlines()
 
 # Ingredient extraction
+# ingredient extraction
 db = Ingredients()
 ingreds = []
 for subtitle in transcript:
 	text = subtitle['text']
+	tokens = nltk.word_tokenize(text)
+	tagged = nltk.pos_tag(tokens)
+	verbs1 = []
 	stuff = db.parse_ingredients(text)
 	measurements = db.parse_measurements(text)
 	ingreds += stuff
+
+	for tag in tagged:
+		if tag[1] == "VB":
+			verbs1.append(tag[0].lower())
+	
+	if (len(stuff) > 0):
+		print(text)
+		print(verbs1)
+		print(stuff)
+		print(measurements)
+
+print(ingreds)
+
+# ingredient extraction
+db = Ingredients()
+ingreds = []
+for subtitle in transcript:
+	text = subtitle['text']
+	tokens = nltk.word_tokenize(text)
+	tagged = nltk.pos_tag(tokens)
+	verbs = []
+	stuff = db.parse_ingredients(text)
+	measurements = db.parse_measurements(text)
+	ingreds += stuff
+
+	for tag in tagged:
+		if tag[1] == "VB":
+			verbs.append(tag[0].lower())
 	
 	if (len(stuff) > 0):
 		print(text)
 		print(verbs)
 		print(stuff)
 		print(measurements)
+
 print(ingreds)
 
 # Filter lines
