@@ -47,8 +47,8 @@ def get_recipe(url, use_filter):
             text = subtitle['text']
 
             # Write all lines
-            with open('before_filter.txt', 'a') as before_file:
-                before_file.write(text + '\n')
+            # with open('before_filter.txt', 'a') as before_file:
+            #     before_file.write(text + '\n')
         
             # Remove lines without an ingredient, cooking verb, or time measurement
             for target in (list(ingreds) + verbs):

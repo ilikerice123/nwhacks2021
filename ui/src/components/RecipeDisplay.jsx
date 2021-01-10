@@ -4,6 +4,7 @@ export default class Recipe extends React.Component {
     constructor(props) {
         super(props)
         this.state = {recipe: null}
+        this.recipeRef = React.createRef()
     }
 
     async componentDidUpdate(prevProps, prevState){
@@ -15,17 +16,56 @@ export default class Recipe extends React.Component {
                 return
             }
             this.setState({recipe: await res.json()})
+            this.recipeRef.current.scrollIntoView()
         }
     }
 
     render() {
         return (
-            <div>
-                Hello World! This is your recipe!:
-                {this.state.recipe && JSON.stringify(this.state.recipe)}
+            <div className={'recipe'} ref={this.recipeRef}>
+                {this.state.recipe && 
+                    <div className={'recipe-display'}>
+                        <Ingredients ingredients={this.state.recipe.ingredients} />
+                        <Instructions instructions={this.state.recipe.instructions} />
+                    </div>
+                }
             </div>
         )
     }
+}
+
+export function Ingredients(props) {
+    let ingredients = props.ingredients
+    return <div className="ingred">
+        <h2>Ingredients</h2>
+        <ul>
+            {ingredients.map((ingred) => (
+                <li>
+                    {ingred}
+                </li>
+            ))}
+        </ul>
+    </div>
+}
+
+export function Instructions(props) {
+    let instructions = props.instructions
+    return <div className="ins">
+        <h2>Instructions</h2>
+        <ol>
+            {instructions.map((instruction) => (
+                <li>
+                    {instruction.step}
+                    {instruction.image && 
+                        <div>
+                            <br />
+                            <img src={host() + instruction.image} />
+                        </div>
+                    }
+                </li>
+            ))}
+        </ol>
+    </div>
 }
 
 export function host() {
