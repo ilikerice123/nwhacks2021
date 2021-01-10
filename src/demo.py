@@ -3,7 +3,7 @@ from ingredients import Ingredients
 import argparse
 import nltk
 
-def get_ingredients(url, filter):
+def get_ingredients(url, use_filter):
     # target Binging with Babish video
     transcript = YouTubeTranscriptApi.get_transcript(url)
 
@@ -31,7 +31,8 @@ def get_ingredients(url, filter):
 
     # Filter lines, creating the steps
     times = ['seconds', 'minutes', 'hours', 'second', 'minute', 'hour']
-    if args.filter:
+    instructions = []
+    if use_filter:
         print("Filtering transcript...")
         for subtitle in transcript:
             text = subtitle['text']
@@ -45,7 +46,9 @@ def get_ingredients(url, filter):
                 if (target in text or len([t for t in times if(t in text)])):
                     with open('after_filter.txt', 'a') as after_file:
                         after_file.write(text + '\n')
+                        instructions.append(text)
                         break
+    res['instructions'] = instructions
     return res
 
 def get_actual_ingredients(cur_ingredients, measurements):
