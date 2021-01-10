@@ -33,9 +33,9 @@ verb_db_s = sorted(verb_db.items(), key=lambda x: x[1], reverse=True)
 print(verb_db_s)
 
 # Clear text file
-open("freq_words.txt", "w").close()
+open("cooking_verbs.txt", "w").close()
 
 # Write verbs into text file
-with open("freq_words.txt", "a") as output_file:
+with open("cooking_verbs.txt", "a") as output_file:
     for word in verb_db_s:
         output_file.write(str(word[0]) + "\n")
