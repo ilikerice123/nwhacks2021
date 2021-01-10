@@ -74,6 +74,6 @@ export function host() {
     if (url.host.includes("localhost")) {
         return "http://localhost:5000/"
     } else {
-        return "/"
+        return "http://ec2-54-187-166-169.us-west-2.compute.amazonaws.com:4999/"
     }
 }
